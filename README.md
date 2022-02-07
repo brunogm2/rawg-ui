@@ -4,3 +4,6 @@
 Aplicação que permite a busca por nome de usuários do Github e mostra seus repositórios.
 
 
+# Tecnologias utilizadas
+
+ * [JavaScript](#Javascript)
