@@ -16,6 +16,7 @@ export default function Home() {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+    const [removeButton, setRemoveButton] = useState(true);
 
     useEffect(() => {
         setIsLoading(true);
@@ -25,7 +26,9 @@ export default function Home() {
     useEffect(() => {
         const observable = new IntersectionObserver((entries) => {
             if(entries.some((entry) => entry.isIntersecting )){
-                setCurrentPage((currentPageInsideState) => currentPageInsideState + 1)
+                setCurrentPage((currentPageInsideState) => currentPageInsideState + 1);
+            }else{
+                setRemoveButton(false);
             }
         });
 
@@ -54,6 +57,10 @@ export default function Home() {
     async function handleSearch() {
         const response = await api.get(`games${process.env.REACT_APP_API_KEY}&search=${searchTerm}`);
         setGames(response.data.results);
+    }
+
+    function handleLoadingGames(){
+        setCurrentPage((currentPageInsideState) => currentPageInsideState + 1)
     }
 
     return(
@@ -136,8 +143,17 @@ export default function Home() {
                 ))}
                 
             </Content>
+            {removeButton == true ? 
+             <div id="fetch" className="fetch" >
+                <button onClick={handleLoadingGames}>
+                        Carregar Mais
+                </button>
+            </div> : 
+            <div id="fetch" className="fetch" >
+
+            </div>
+            }
             
-            <div id="fetch" className="fetch"></div>
 
         </Container>
     )

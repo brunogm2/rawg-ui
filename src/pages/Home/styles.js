@@ -10,6 +10,23 @@ const iconsComponent = css`
     fill: #7C7C7C;
 `
 
+const button = css`
+    border: none;
+    padding: 0 16px;
+    background: linear-gradient(180deg, rgba(51,102,255,1) 30%, rgba(37,37,37,1) 100%);
+    margin: 0 34px;
+    font-weight: bold;
+    color: ${({ theme }) => theme.colors.primary.lighter};
+    border-radius: 4px;
+    transition: border 0.2s ease-in;
+    text-decoration: underline;
+    min-height: 30px;
+
+    &:active {
+        background: ${({ theme }) => theme.colors.primary.dark};
+    }
+`
+
 export const Container = styled.div`
     margin-top: 32px;
 
@@ -18,22 +35,9 @@ export const Container = styled.div`
         flex-direction: row;
 
         >button{
-            border: none;
-            padding: 0 16px;
-            background: linear-gradient(180deg, rgba(51,102,255,1) 30%, rgba(37,37,37,1) 100%);
-            margin: 0 34px;
-            font-weight: bold;
-            color: ${({ theme }) => theme.colors.primary.lighter};
-            border-radius: 4px;
-            transition: border 0.2s ease-in;
-            text-decoration: underline;
-
-            &:active {
-                background: ${({ theme }) => theme.colors.primary.dark};
-            }
+            ${button}
         }
     }
-    
 
     .header {
         display: flex;
@@ -41,6 +45,19 @@ export const Container = styled.div`
         text-align: center;
         justify-content: space-between;
         margin-bottom: 52px;
+    }
+
+    .fetch{
+        width: 100%;
+        height: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 32px;
+
+        >button{
+            ${button}
+        }
     }
 
     @media(max-width: 767px) {
