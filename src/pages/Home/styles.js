@@ -43,10 +43,17 @@ export const Container = styled.div`
         margin-bottom: 52px;
     }
 
-    .fetch{
-        /* width: 100%;
-        height: 50px;
-        background: red; */
+    @media(max-width: 767px) {
+        .search{
+            flex-direction: column;
+
+            >button{
+                width: 100%;
+                height: 50px;
+                margin: 0px;
+                margin-top: 12px;
+            }
+        }
     }
 `;
 
@@ -124,6 +131,13 @@ export const Content = styled.div`
         margin-bottom: 8px;
         color: ${({ theme }) => theme.colors.primary.light};
     }
+
+    @media(max-width: 767px) {
+        .content-card{
+            width: 100%;
+            margin-right: 0px;
+        }
+    }
 `;
 
 export const PlaystationIcon = styled(FaPlaystation)`
@@ -137,4 +151,5 @@ export const XboxIcon = styled(FaXbox)`
 export const WinIcon = styled(FaWindows)`
     ${iconsComponent}
 `;
+
 
