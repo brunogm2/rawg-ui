@@ -1,7 +1,7 @@
 
 <h1 align="center">Rawg UI - ReactJS</h1>
 
-Aplicação que permite a busca por nome de usuários do Github e mostra seus repositórios.
+Aplicação que permite a busca de diversos games da api rawg.
 
 <h3 > 💻 Acesse a aplicação <a href="https://rawg-ui.netlify.app/">aqui</a> </h3>
 
@@ -17,3 +17,10 @@ Aplicação que permite a busca por nome de usuários do Github e mostra seus re
 
 
 # 📥 Como executar localmente
+
+
+ * [Clonar Repositorio:] git clone https://github.com/brunogm2/rawg-ui.git
+
+ * [Instalar dependências:] Npm Install
+
+ * [Rodar Aplicação:] Npm start
