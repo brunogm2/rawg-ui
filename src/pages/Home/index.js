@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from 'react-router-dom';
 import { Container, Content, PlaystationIcon, XboxIcon, WinIcon } from "./styles";
 
@@ -14,16 +14,26 @@ export default function Home() {
 
     const [games, setGames] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
     const [removeButton, setRemoveButton] = useState(true);
+    const [fetch, setFetch] = useState(1);
 
+    const firstUpdate = useRef(true); 
+    
     useEffect(() => {
         setIsLoading(true);
         handleListGames();
     }, [currentPage]);
 
     useEffect(() => {
+        AOS.init({ duration: 2000 });
+       
+        if (firstUpdate.current) { 
+            firstUpdate.current = false; 
+            return; 
+        } 
+
         const observable = new IntersectionObserver((entries) => {
             if(entries.some((entry) => entry.isIntersecting )){
                 setCurrentPage((currentPageInsideState) => currentPageInsideState + 1);
@@ -35,11 +45,7 @@ export default function Home() {
         observable.observe(document.querySelector('#fetch'));
 
         return () => observable.disconnect();
-    }, [])
-
-    useEffect(() => {
-        AOS.init({ duration: 2000 });
-    }, [])
+    }, [fetch])
 
     async function handleListGames() {
         const response = await api.get(`games${process.env.REACT_APP_API_KEY}&page=${currentPage}&page_size=10`);
@@ -55,12 +61,15 @@ export default function Home() {
     }
 
     async function handleSearch() {
+        setIsLoading(true);
+        
         const response = await api.get(`games${process.env.REACT_APP_API_KEY}&search=${searchTerm}`);
+        setIsLoading(false);
         setGames(response.data.results);
     }
 
     function handleLoadingGames(){
-        setCurrentPage((currentPageInsideState) => currentPageInsideState + 1)
+        setFetch((currentPageInsideState) => currentPageInsideState + 1)
     }
 
     return(
